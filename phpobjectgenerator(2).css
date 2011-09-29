@@ -1,0 +1,275 @@
+body
+{
+	margin:0 auto;
+	padding:0;
+	font-family:Verdana;
+	font-size:10px;
+	font-weight:bold;
+	color:#828282;
+	background-color:#fff;
+}
+.greybox
+{
+	background:url('./images/tile.jpg') repeat-y;
+	padding:10px 0 10px 45px;
+	width:360px;
+	font-size:9px;
+	float:left;
+	position:relative;
+	z-index:100;
+}
+
+.greybox2
+{
+	background:url('./images/tile2.jpg') repeat-y;
+	padding:5px 0 10px 60px;
+	width:360px;
+	font-size:9px;
+	float:left;
+	position:relative;
+	z-index:100;
+}
+.header
+{
+	width:425px;
+	height:147px;
+	float:left;
+	background:url('./images/header.jpg') top left no-repeat;
+	position:relative;
+}
+.objectname
+{
+	float:left;
+	position:relative;
+	padding:45px 0 0 155px;
+	background:url('./images/body.jpg') top left no-repeat;
+	width:258px;
+	height:79px;
+	z-index:100;
+}
+.header2
+{
+	width:425px;
+	height:147px;
+	float:left;
+	background:url('./images/header2.jpg') top left no-repeat;
+	position:relative;
+}
+.result
+{
+	float:left;
+	position:relative;
+	padding:90px 0 0 0;
+	background:url('./images/body2.jpg') top left no-repeat;
+	width:413px;
+	height:151px;
+	z-index:100;
+}
+.generate
+{
+	padding-left:235px;
+	padding-top:10px;
+	width:190px;
+	height:56px;
+	background:url('./images/customize.jpg') top left no-repeat;
+	position:relative;
+	float:left;
+}
+.customize
+{
+	padding-left:150px;
+	padding-top:38px;
+	width:258px;
+	height:63px;
+	background:url('./images/customize2.jpg') top left no-repeat;
+	position:relative;
+	z-index:99;
+	float:left;
+}
+.generate2
+{
+	padding-left:280px;
+	padding-top:10px;
+	width:145px;
+	height:10px;
+	background:url('./images/end2.jpg') top left no-repeat;
+	float:left;
+	position:relative;
+}
+.restart
+{
+	width:370px;
+	height:100px;
+	padding-top:30px;
+	background-color:#333;
+	background:url('./images/restart.gif') top left no-repeat;
+	position:relative;
+	float:left;
+}
+input.i
+{
+	position:relative;
+   	padding:2px 0 1px 0;
+   	width:98px;
+	background-color:#EEEAEB;
+	color:#333;
+	font-size:9px;
+	vertical-align:middle;
+	border:1px solid #D1D1D1;
+	z-index:2001;
+}
+select.s
+{
+	position:relative;
+	height:16px;
+	width:102px;
+	background-color:#EEEAEB;
+	color:#333;
+	font-weight:normal;
+	font-size:9px;
+	vertical-align:middle;
+	border:1px solid #D1D1D1;
+	z-index:101;
+
+}
+.objectattributes
+{
+	float:left;
+	position:absolute;
+	margin:248px 0 0 30px;
+}
+
+.customize img
+{
+	vertical-align:middle;
+	height:15px;
+}
+.submit
+{
+	position:relative;
+	padding-left:30px;
+	width:200px;
+}
+.add
+{
+	float:left;
+	position:absolute;
+	margin:405px 0 0 30px;
+}
+label
+{
+	line-height:17px;
+	height:20px;
+	vertical-align:middle;
+}
+.line
+{
+	height:34px;
+}
+.line img
+{
+	vertical-align:middle;
+}
+.main
+{
+	margin:28px 0 0 38px;
+	width:600px;
+}
+.main2
+{
+	margin:10px 0 0 38px;
+	width:600px;
+}
+.gold
+{
+	color:#6A6509;
+	border-bottom:1px dotted #6A6509;
+	text-transform:uppercase;
+	letter-spacing:1px;
+	font-size:8px;
+}
+.g
+{
+	color:#837E3C;
+}
+a
+{
+	text-decoration:none;
+	color:#837E3C;
+	z-index:300;
+}
+.left
+{
+	width:170px;
+	float:left;
+	font-size:9px;
+	line-height:14px;
+	font-weight:normal;
+	color:#848484;
+	margin:93px auto 0 0;
+	height:100%;
+	position:absolute;
+	z-index:300;
+}
+.left2
+{
+	width:170px;
+	float:left;
+	font-size:9px;
+	line-height:14px;
+	font-weight:normal;
+	color:#848484;
+	margin:122px auto 0 0;
+	height:100%;
+	position:absolute;
+	z-index:300;
+}
+.right
+{
+	width:170px;
+	float:left;
+	margin:93px auto 0 600px;
+	position:absolute;
+	z-index:300;
+	font-weight:normal;
+	font-size:9px;
+}
+.right2
+{
+	width:170px;
+	float:left;
+	margin:122px auto 0 540px;
+	position:absolute;
+	z-index:300;
+	font-weight:normal;
+	font-size:9px;
+}
+.middle
+{
+	position:absolute;
+	float:left;
+	padding-left:175px;
+	width:500px;
+}
+textarea
+{
+	width:267px;
+	height:379px;
+	color:#333;
+	font-weight:bold;
+	font-size:9px;
+}
+textarea.t{
+	background-color:#EEEAEB;
+	border:1px solid #D1D1D1;
+}
+.news
+{
+	color:#837E3C;
+	font-weight:bold;
+	padding-bottom:30px;
+}
+.news a
+{
+	text-decoration:underline;
+}

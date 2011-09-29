@@ -1,0 +1,67 @@
+<?php
+class Search extends POG_Base implements POG_Plugin
+{
+	private $query;
+	private $limit;
+	private $lazyLoad;
+	private $columnsToSearch;
+	private $version = "1.0";
+
+	function Version()
+	{
+		return $this->version;
+	}
+
+	function Search($textToSearch, $columnsToSearch = '', $limit = '', $lazyLoad = true)
+	{
+		$this->query = $textToSearch;
+		$this->columnsToSearch = $columnsToSearch;
+		$this->limit = $limit;
+		$this->lazyLoad = $lazyLoad;
+	}
+
+	function Describe()
+	{
+		return "This plugin performs a full text search against a particular table. Note that the table needs to have full text indexes enabled. You will need to alter the tables manually
+		Alter table <object> add fulltext searching(<attribute1>, <attribute2>)";
+	}
+
+	function Execute($callerObject)
+	{
+		if ($this->columnsToSearch == '')
+		{
+			//match against all columns
+			$columns = $this->GetAttributes($callerObject);
+			$match = strtolower(trim(implode(',', $columns)));
+		}
+		else
+		{
+			$match = strtolower(trim(implode(',', $this->columnsToSearch)));
+		}
+		$sql = "select * from ".$this->GetTableName($callerObject)." where match (".$match.") against ('$this->query');";
+		if ($this->limit)
+		{
+			$sql .= "limit $this->limit";
+		}
+		return $this->FetchObjects($sql, get_class($callerObject));
+	}
+
+	function SetupRender()
+	{
+		//render a list of all objects and their attributes
+		$objectList = $this->GetAllObjects();
+		$out = "<select multiple='multiple' size='' name='objects[]'>";
+		foreach ($objectList as $object)
+		{
+			$out .= "<option>".get_class($object)."</option>";
+		}
+		$out .= "</select>";
+
+	}
+
+	function SetupExecute()
+	{
+		//create full text indexes for selected columns.
+		//remove full text indexes for unselected columns.
+	}
+}

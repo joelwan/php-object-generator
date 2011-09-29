@@ -1,0 +1,229 @@
+<definitions
+	xmlns="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:http="http://schemas.xmlsoap.org/wsdl/http/"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:s="http://www.w3.org/2001/XMLSchema"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/"
+	xmlns:tns=""
+	targetNamespace=""
+	>
+	<wsdl:types>
+		<schema targetNamespace="" xmlns="http://www.w3.org/2001/XMLSchema">
+			<import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+			<import namespace="http://schemas.xmlsoap.org/wsdl/"/>
+			<complexType name="StringArray">
+				<complexContent>
+					<restriction base="soapenc:Array">
+						<attribute ref="soapenc:arrayType" wsdl:arrayType="xsd:string[]"/>
+					</restriction>
+				</complexContent>
+			</complexType>
+		</schema>
+	</wsdl:types>
+	<!-- message block begins -->
+	<message name="addRequest">
+		<part name="a" type="s:int"/>
+		<part name="b" type="s:int"/>
+	</message>
+	<message name="addResponse">
+		<part name="return" type="s:long"/>
+	</message>
+	<message name="GetGeneratorVersionRequest">
+	</message>
+	<message name="GetGeneratorVersionResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	<message name="GenerateObjectRequest">
+		<part name="objectName" type="xsd:string"/>
+		<part name="attributeList" type="tns:StringArray"/>
+		<part name="typeList" type="tns:StringArray"/>
+		<part name="language" type="xsd:string"/>
+		<part name="wrapper" type="xsd:string"/>
+		<part name="pdoDriver" type="xsd:string"/>
+	</message>
+	<message name="GenerateObjectResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	<message name="GenerateMappingRequest">
+		<part name="objectName1" type="xsd:string"/>
+		<part name="objectName2" type="xsd:string"/>
+		<part name="language" type="xsd:string"/>
+		<part name="wrapper" type="xsd:string"/>
+		<part name="pdoDriver" type="xsd:string"/>
+	</message>
+	<message name="GenerateMappingResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	<message name="GenerateObjectFromLinkRequest">
+		<part name="link" type="xsd:string"/>
+	</message>
+	<message name="GenerateObjectFromLinkResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	<message name="GeneratePackageFromLinkRequest">
+		<part name="link" type="xsd:string"/>
+	</message>
+	<message name="GeneratePackageFromLinkResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	<message name="GenerateConfigurationRequest">
+		<part name="wrapper" type="xsd:string"/>
+	</message>
+	<message name="GenerateConfigurationResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	<message name="GeneratePackageRequest">
+		<part name="objectName" type="xsd:string"/>
+		<part name="attributeList" type="tns:StringArray"/>
+		<part name="typeList" type="tns:StringArray"/>
+		<part name="language" type="xsd:string"/>
+		<part name="wrapper" type="xsd:string"/>
+		<part name="pdoDriver" type="xsd:string"/>
+		<part name="db_encoding" type="xsd:string"/>
+	</message>
+	<message name="GeneratePackageResponse">
+		<part name="return" type="xsd:string"/>
+	</message>
+	<!-- port block begins -->
+	<portType name="PogServiceServiceSoap">
+
+		<!-- operation block begins -->;
+		<operation name="add">
+			<input message="tns:addRequest"/>
+			<output message="tns:addResponse"/>
+		</operation>
+		<operation name="GetGeneratorVersion">
+			<documentation>
+				Fetches the current POG version. Can be used to detect for upgrades.
+			</documentation>
+			<input message="tns:GetGeneratorVersionRequest"/>
+			<output message="tns:GetGeneratorVersionResponse"/>
+		</operation>
+		<operation name="GenerateObject">
+			<documentation>
+				Generates the appropriate object from supplied attributeList, typeList etc.
+			</documentation>
+			<input message="tns:GenerateObjectRequest"/>
+			<output message="tns:GenerateObjectResponse"/>
+		</operation>
+		<operation name="GenerateMapping">
+			<documentation>Generates a mapping class between 2 siblings</documentation>
+			<input message="tns:GenerateMappingRequest"/>
+			<output message="tns:GenerateMappingResponse"/>
+		</operation>
+		<operation name="GenerateObjectFromLink">
+			<documentation>
+				Generates the appropriate object from `proprietary format` of @link
+			</documentation>
+			<input message="tns:GenerateObjectFromLinkRequest"/>
+			<output message="tns:GenerateObjectFromLinkResponse"/>
+		</operation>
+		<operation name="GeneratePackageFromLink">
+			<documentation>
+				Generates a pog package which is essentially a multi-D array with folder names as keys and file contents as values. The package can be delivered across the network, modified, and then finally zipped when the time is right.
+			</documentation>
+			<input message="tns:GeneratePackageFromLinkRequest"/>
+			<output message="tns:GeneratePackageFromLinkResponse"/>
+		</operation>
+		<operation name="GenerateConfiguration">
+			<documentation>Generates the appropriate configuration file</documentation>
+			<input message="tns:GenerateConfigurationRequest"/>
+			<output message="tns:GenerateConfigurationResponse"/>
+		</operation>
+		<operation name="GeneratePackage">
+			<documentation>
+				Generates a pog package which is essentially a multi-D array with folder names as keys and file contents as values. The package can be delivered across the network, modified, and then finally zipped when the time is right.
+			</documentation>
+			<input message="tns:GeneratePackageRequest"/>
+			<output message="tns:GeneratePackageResponse"/>
+		</operation>
+	</portType>
+
+	<!-- binding block begins -->
+	<binding name="PogServiceServiceSoap" type="tns:PogServiceServiceSoap">
+		<soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+		<!-- operation block begins -->
+		<operation name="add">
+			<soap:operation soapAction="urn:add"/>
+			<input>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="GetGeneratorVersion">
+			<soap:operation soapAction="urn:xmethods#GetGeneratorVersion" style="rpc"/>
+			<input>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="GenerateObject">
+			<soap:operation soapAction="urn:xmethods#GenerateObject" style="rpc"/>
+			<input>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="GenerateMapping">
+			<soap:operation soapAction="urn:xmethods#GenerateMapping" style="rpc"/>
+			<input>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="GenerateObjectFromLink">
+			<soap:operation soapAction="urn:xmethods#GenerateObjectFromLink" style="rpc"/>
+			<input>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="GeneratePackageFromLink">
+			<soap:operation soapAction="urn:xmethods#GeneratePackageFromLink" style="rpc"/>
+			<input>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="GenerateConfiguration">
+			<soap:operation soapAction="urn:xmethods#GenerateConfiguration" style="rpc"/>
+			<input>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+		<operation name="GeneratePackage">
+			<soap:operation soapAction="urn:xmethods#GeneratePackage" style="rpc"/>
+			<input>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</input>
+			<output>
+				<soap:body use="encoded" namespace="urn:xmethods" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/>
+			</output>
+		</operation>
+	</binding>
+
+	<!-- service block begins -->
+	<service name="PogService">
+		<port name="PogServiceService" binding="tns:PogServiceServiceSoap">
+			<soap:address location="http://www.phpobjectgenerator.com/services/soap_php5.php"/>
+		</port>
+	</service>
+</definitions>
