@@ -223,11 +223,13 @@ class Object
 		$this->string .="\n\t\t{";
 		$this->string .= "\n\t\t\t\$Database = new PDO(\$GLOBALS['configuration']['pdoDriver'].':'.\$GLOBALS['configuration']['odbcDSN']);";
 		$this->string .= "\n\t\t\t\$count = 0;";
-		$this->string .= "\n\t\t\t\$this->pog_query = \"select count(".strtolower($this->objectName)."id) as count from ".strtolower($this->objectName)." where ".strtolower($this->objectName)."id = '\$this->".strtolower($this->objectName)."Id'\";";
-		$this->string .= "\n\t\t\tforeach (\$Database->query(\$this->pog_query) as \$row)";
-		$this->string .= "\n\t\t\t{";
-		$this->string .= "\n\t\t\t\t\$count = \$row['count'];";
-		$this->string .= "\n\t\t\t\tbreak;";
+		$this->string .= "\n\t\t\tif (\$this->".strtolower($this->objectName)."Id!=''){";
+		$this->string .= "\n\t\t\t\t\$this->pog_query = \"select count(".strtolower($this->objectName)."id) as count from ".strtolower($this->objectName)." where ".strtolower($this->objectName)."id = '\$this->".strtolower($this->objectName)."Id'\";";
+		$this->string .= "\n\t\t\t\tforeach (\$Database->query(\$this->pog_query) as \$row)";
+		$this->string .= "\n\t\t\t\t{";
+		$this->string .= "\n\t\t\t\t\t\$count = \$row['count'];";
+		$this->string .= "\n\t\t\t\t\tbreak;";
+		$this->string .= "\n\t\t\t\t}";
 		$this->string .= "\n\t\t\t}";
 		$this->string .= "\n\t\t\tif (\$count == 1)";
 		$this->string .= "\n\t\t\t{";

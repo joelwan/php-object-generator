@@ -363,8 +363,11 @@ class Object
 			$this->string .= "\tfunction Save()\n\t{";
 		}
 		$this->string .= "\n\t\t\$connection = Database::Connect();";
-		$this->string .= "\n\t\t\$this->pog_query = \"select `".strtolower($this->objectName)."id` from `".strtolower($this->objectName)."` where `".strtolower($this->objectName)."id`='\".\$this->".strtolower($this->objectName)."Id.\"' LIMIT 1\";";
-		$this->string .= "\n\t\t\$rows = Database::Query(\$this->pog_query, \$connection);";
+		$this->string .= "\n\t\t\$rows = 0;";
+		$this->string .= "\n\t\tif (\$this->".strtolower($this->objectName)."Id!=''){";
+		$this->string .= "\n\t\t\t\$this->pog_query = \"select `".strtolower($this->objectName)."id` from `".strtolower($this->objectName)."` where `".strtolower($this->objectName)."id`='\".\$this->".strtolower($this->objectName)."Id.\"' LIMIT 1\";";
+		$this->string .= "\n\t\t\t\$rows = Database::Query(\$this->pog_query, \$connection);";
+		$this->string .= "\n\t\t}";
 		$this->string .= "\n\t\tif (\$rows > 0)";
 		$this->string .= "\n\t\t{";
 		$this->string .= "\n\t\t\t\$this->pog_query = \"update `".strtolower($this->objectName)."` set ";
