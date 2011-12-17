@@ -1,6 +1,6 @@
 <?php
 global $configuration;
-$configuration['soapEngine'] = "nusoap"; //other value is "phpsoap"
+$configuration['soapEngine'] = "phpsoap"; //other value is "phpsoap"
 $configuration['soap'] = "http://beta.phpobjectgenerator.com/services/soap.php?wsdl";
 $configuration['homepage'] = "http://beta.phpobjectgenerator.com";
 $configuration['revisionNumber']="";
