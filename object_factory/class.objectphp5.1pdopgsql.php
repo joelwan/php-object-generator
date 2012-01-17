@@ -64,7 +64,7 @@ class Object
 		}
 		//	create attribute => type array map
 		//	needed for setup
-		$this->string .= "public \$pog_attribute_type = array(\n\t\t";
+		$this->string .= "private \$pog_attribute_type = array(\n\t\t";
 				$this->string .= "\"".strtolower($this->objectName)."id\" => array(\"NUMERIC\", \"INTEGER\"),\n\t\t";
 		$x = 0;
 		foreach ($this->attributeList as $attribute)
@@ -80,7 +80,7 @@ class Object
 			$x++;
 		}
 		$this->string .= ");\n\t";
-		$this->string .= "public \$pog_query;";
+		$this->string .= "private \$pog_query;";
 	}
 
 	// -------------------------------------------------------------
