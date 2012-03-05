@@ -19,4 +19,3 @@ The time you save can be spent on more interesting areas of your project.
 
 ## Use without Install
 * [http://phpobjectgenerator.com](http://phpobjectgenerator.com)
-
