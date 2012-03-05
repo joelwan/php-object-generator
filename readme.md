@@ -1,3 +1,5 @@
+# PHP Object Generator
+
 PHP Object Generator, (POG) is an open source PHP code generator which automatically generates 
 clean & tested Object Oriented code for your PHP4/PHP5 application. 
 
@@ -9,16 +11,12 @@ By generating PHP objects with integrated CRUD methods, POG gives you a head sta
 
 The time you save can be spent on more interesting areas of your project.
 
-Install
--------
-Extract repo content to a folder on your server
-
-Edit include/configuration.php
-
-Point your browser to /index.php
+## Install
+* Extract repo content to a folder on your server
+* Edit include/configuration.php
+* Point your browser to /index.php
 
 
-Use without Install
---------------------
-http://phpobjectgenerator.com
+## Use without Install
+* [http://phpobjectgenerator.com](http://phpobjectgenerator.com)
 
