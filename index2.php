@@ -19,6 +19,7 @@ if (IsPostback())
 	$objectName = GetVariable('object');
 	$attributeList=Array();
 	$typeList=Array();
+	$classList=Array();
 	$z=0;
 	for ($i=1; $i<100; $i++)
 	{
@@ -42,6 +43,13 @@ if (IsPostback())
 		{
 			//attribute may have been removed. proceed to next row
 			$z++;
+		}
+
+		if (GetVariable(('type_'.$i)) == "BELONGSTO" || GetVariable(('type_'.$i)) == "HASMANY"){
+			$classList[] = GetVariable(('tclass_'.$i));
+		}
+		else{
+			$classList[] = '';
 		}
 	}
 
@@ -74,7 +82,7 @@ else if ($GLOBALS['configuration']['soapEngine'] == "phpsoap")
 	$client = new SoapClient('services/pog.wsdl', array('cache_wsdl' => 0));
 	try
 	{
-		$object = base64_decode($client->GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver));
+		$object = base64_decode($client->GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver, $classList));
 		$_SESSION['objectString'] = $object;
 		$_SESSION['attributeList'] = serialize($attributeList);
 		$_SESSION['typeList'] = serialize($typeList);

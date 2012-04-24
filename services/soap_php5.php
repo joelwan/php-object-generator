@@ -31,7 +31,7 @@ class ServiceClass
 	 * @param string $pdoDriver
 	 * @return base64 encoded string
 	 */
-	function GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver)
+	function GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver, $classList)
 	{
 		require_once ("../include/configuration.php");
 		require_once ("../include/class.misc.php");
@@ -63,6 +63,10 @@ class ServiceClass
 		{
 			$pdoDriver = '';
 		}
+		if ($classList == null)
+		{
+			$classList = array();
+		}
 
 		if (strtoupper($wrapper) == "PDO")
 		{
@@ -80,7 +84,7 @@ class ServiceClass
 				require_once "../object_factory/class.objectphp5pogmysql.php";
 			}
 		}
-		$object = new Object($objectName,$attributeList,$typeList,$pdoDriver);
+		$object = new Object($objectName,$attributeList,$typeList,$pdoDriver, $language, $classList);
 		$object->BeginObject();
 		$object->CreateMagicGetterFunction();
 		$object->CreateConstructor();
@@ -96,13 +100,13 @@ class ServiceClass
 		{
 			if ($type == "HASMANY")
 			{
-				$object->CreateGetChildrenFunction($attributeList[$i]);
+				$object->CreateGetChildrenFunction($attributeList[$i], $classList[$i]);
 				$object->CreateSetChildrenFunction($attributeList[$i]);
 				$object->CreateAddChildFunction($attributeList[$i]);
 			}
 			else if ($type == "BELONGSTO")
 			{
-				$object->CreateGetParentFunction($attributeList[$i]);
+				$object->CreateGetParentFunction($attributeList[$i], $classList[$i]);
 				$object->CreateSetParentFunction($attributeList[$i]);
 			}
 			else if ($type == "JOIN")
