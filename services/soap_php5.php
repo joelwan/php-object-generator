@@ -340,7 +340,7 @@ class ServiceClass
 	 * @param string $wrapper
 	 * @param string $pdoDriver
 	 */
-	function GeneratePackage($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver = null, $db_encoding = 0)
+	function GeneratePackage($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver = null, $db_encoding = 0, $classList)
 	{
 		require_once ("../include/configuration.php");
 		require_once ("../include/class.misc.php");
@@ -376,7 +376,7 @@ class ServiceClass
 		$data = file_get_contents("../object_factory/class.pog_base.".strtolower($language).strtolower($wrapper).".php");
 		$package["objects"]["class.pog_base.php"] = base64_encode($data);
 
-		$package["objects"]["class.".strtolower($objectName).".php"] =  $this->GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver);
+		$package["objects"]["class.".strtolower($objectName).".php"] =  $this->GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver, $classList);
 
 		$package["objects"]["ignore_objects.txt"] = "";
 

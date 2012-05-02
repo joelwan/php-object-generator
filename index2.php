@@ -27,6 +27,7 @@ if (IsPostback())
 		{
 			$attributeList[] = GetVariable(('fieldattribute_'.$i));
 			$z++;
+
 		}
 		if (GetVariable(('type_'.$i)) != null && $z==$i)
 		{
@@ -38,18 +39,19 @@ if (IsPostback())
 			{
 				$typeList[] = GetVariable(('ttype_'.$i));
 			}
+
+			if (GetVariable(('type_'.$i)) == "BELONGSTO" || GetVariable(('type_'.$i)) == "HASMANY"){
+				$classList[] = GetVariable(('tclass_'.$i));
+			}
+			else{
+				$classList[] ='';
+			}
+
 		}
 		else
 		{
 			//attribute may have been removed. proceed to next row
 			$z++;
-		}
-
-		if (GetVariable(('type_'.$i)) == "BELONGSTO" || GetVariable(('type_'.$i)) == "HASMANY"){
-			$classList[] = GetVariable(('tclass_'.$i));
-		}
-		else{
-			$classList[] = '';
 		}
 	}
 
