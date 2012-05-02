@@ -189,7 +189,7 @@ class Object
 		$this->string .= "\n* @version POG ".$GLOBALS['configuration']['versionNumber'].$GLOBALS['configuration']['revisionNumber']." / ".strtoupper($this->language)." MYSQL";
 		$this->string .= "\n* @see http://www.phpobjectgenerator.com/plog/tutorials/45/pdo-mysql";
 		$this->string .= "\n* @copyright ".$GLOBALS['configuration']['copyright'];
-		$this->string .= "\n* @link http://www.phpobjectgenerator.com/?language=".$this->language."&wrapper=pdo&pdoDriver=".$this->pdoDriver."&objectName=".urlencode($this->objectName)."&attributeList=".urlencode(var_export($this->attributeList, true))."&typeList=".urlencode(urlencode(var_export($this->typeList, true)));
+		$this->string .= "\n* @link http://www.phpobjectgenerator.com/?language=".$this->language."&wrapper=pdo&pdoDriver=".$this->pdoDriver."&objectName=".urlencode($this->objectName)."&attributeList=".urlencode(var_export($this->attributeList, true))."&typeList=".urlencode(urlencode(var_export($this->typeList, true)))."&classList=".urlencode(urlencode(var_export($this->classList, true)));
 		$this->string .= "\n*/";
 	}
 

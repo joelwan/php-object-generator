@@ -76,6 +76,7 @@ if ($GLOBALS['configuration']['soapEngine'] == "nusoap")
 		$_SESSION['objectString'] = $object;
 		$_SESSION['attributeList'] = serialize($attributeList);
 		$_SESSION['typeList'] = serialize($typeList);
+		$_SESSION['classList'] = serialize($classList);
 }
 else if ($GLOBALS['configuration']['soapEngine'] == "phpsoap")
 {
@@ -86,6 +87,7 @@ else if ($GLOBALS['configuration']['soapEngine'] == "phpsoap")
 		$_SESSION['objectString'] = $object;
 		$_SESSION['attributeList'] = serialize($attributeList);
 		$_SESSION['typeList'] = serialize($typeList);
+		$_SESSION['classList'] = serialize($classList);
 	}
 	catch (SoapFault $e)
 	{
