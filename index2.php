@@ -167,6 +167,18 @@ else if ($GLOBALS['configuration']['soapEngine'] == "phpsoap")
 					<!-- result -->
 					<div class="greybox2">
 						<textarea cols="200" rows="30"><?php echo $object;?></textarea>
+						<?php
+						foreach ($typeList as $key => $type)
+						{
+							if ($type == "JOIN")
+							{
+								echo('</br></br>Maping Class for '.$attributeList[$key]);
+								$object = base64_decode($client->GenerateMapping($objectName, $attributeList[$key], $language, $wrapper, $pdoDriver));
+								echo('<textarea cols="200" rows="30">'.$object.'</textarea>');
+							}
+						}
+						?>
+
 					</div>
 					<!-- greybox -->
 					<div class="generate2"></div>
