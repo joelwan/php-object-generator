@@ -31,7 +31,7 @@ class ServiceClass
 	 * @param string $pdoDriver
 	 * @return base64 encoded string
 	 */
-	function GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver)
+	function GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver, $classList)
 	{
 		require_once ("../include/configuration.php");
 		require_once ("../include/class.misc.php");
@@ -63,6 +63,10 @@ class ServiceClass
 		{
 			$pdoDriver = '';
 		}
+		if ($classList == null)
+		{
+			$classList = array();
+		}
 
 		if (strtoupper($wrapper) == "PDO")
 		{
@@ -80,7 +84,7 @@ class ServiceClass
 				require_once "../object_factory/class.objectphp5pogmysql.php";
 			}
 		}
-		$object = new Object($objectName,$attributeList,$typeList,$pdoDriver);
+		$object = new Object($objectName,$attributeList,$typeList,$pdoDriver, $language, $classList);
 		$object->BeginObject();
 		$object->CreateMagicGetterFunction();
 		$object->CreateConstructor();
@@ -96,13 +100,13 @@ class ServiceClass
 		{
 			if ($type == "HASMANY")
 			{
-				$object->CreateGetChildrenFunction($attributeList[$i]);
+				$object->CreateGetChildrenFunction($attributeList[$i], $classList[$i]);
 				$object->CreateSetChildrenFunction($attributeList[$i]);
 				$object->CreateAddChildFunction($attributeList[$i]);
 			}
 			else if ($type == "BELONGSTO")
 			{
-				$object->CreateGetParentFunction($attributeList[$i]);
+				$object->CreateGetParentFunction($attributeList[$i], $classList[$i]);
 				$object->CreateSetParentFunction($attributeList[$i]);
 			}
 			else if ($type == "JOIN")
@@ -336,7 +340,7 @@ class ServiceClass
 	 * @param string $wrapper
 	 * @param string $pdoDriver
 	 */
-	function GeneratePackage($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver = null, $db_encoding = 0)
+	function GeneratePackage($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver = null, $db_encoding = 0, $classList)
 	{
 		require_once ("../include/configuration.php");
 		require_once ("../include/class.misc.php");
@@ -372,7 +376,7 @@ class ServiceClass
 		$data = file_get_contents("../object_factory/class.pog_base.".strtolower($language).strtolower($wrapper).".php");
 		$package["objects"]["class.pog_base.php"] = base64_encode($data);
 
-		$package["objects"]["class.".strtolower($objectName).".php"] =  $this->GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver);
+		$package["objects"]["class.".strtolower($objectName).".php"] =  $this->GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver, $classList);
 
 		$package["objects"]["ignore_objects.txt"] = "";
 

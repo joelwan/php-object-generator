@@ -42,6 +42,7 @@
 		<part name="language" type="xsd:string"/>
 		<part name="wrapper" type="xsd:string"/>
 		<part name="pdoDriver" type="xsd:string"/>
+		<part name="classList" type="xsd:string"/>
 	</message>
 	<message name="GenerateObjectResponse">
 		<part name="return" type="xsd:string"/>
@@ -82,6 +83,7 @@
 		<part name="wrapper" type="xsd:string"/>
 		<part name="pdoDriver" type="xsd:string"/>
 		<part name="db_encoding" type="xsd:string"/>
+		<part name="classList" type="tns:StringArray"/>
 	</message>
 	<message name="GeneratePackageResponse">
 		<part name="return" type="xsd:string"/>

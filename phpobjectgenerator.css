@@ -1,11 +1,11 @@
 body {margin:0 auto;padding:0;color:#828282;background:#fff;font:bold 10px Verdana}
-.greybox {background:url('./images/tile.jpg') repeat-y;padding:10px 0 10px 45px;width:360px;font-size:9px;float:left;position:relative;z-index:100}
+.greybox {background:url('./images/tile.jpg') repeat-y;padding:10px 0 10px 45px;width:560px;font-size:9px;float:left;position:relative;z-index:100}
 .greybox2 {background:url('./images/tile2.jpg') repeat-y;padding:5px 0 10px 60px;width:360px;font-size:9px;float:left;position:relative;z-index:100}
 .header {width:425px;height:147px;float:left;background:url('./images/header.gif') top left no-repeat;position:relative}
-.objectname {float:left;position:relative;padding:45px 0 0 155px;background:url('./images/body.jpg') top left no-repeat;width:258px;height:79px;z-index:100}
+.objectname {float:left;position:relative;padding:45px 0 0 155px;background:url('./images/body.jpg') top left no-repeat;width:560px;height:79px;z-index:100}
 .header2 {width:425px;height:147px;float:left;background:url('./images/header2.jpg') top left no-repeat;position:relative}
 .result {float:left;position:relative;padding:90px 0 0;background:url('./images/body2.jpg') top left no-repeat;width:413px;height:151px;z-index:100}
-.generate {padding-left:235px;padding-top:10px;width:190px;height:56px;background:url('./images/customize.jpg') top left no-repeat;position:relative;float:left}
+.generate {padding-left:235px;padding-top:10px;width:560px;height:56px;background:url('./images/customize.jpg') top left no-repeat;position:relative;float:left}
 .customize {padding-left:150px;padding-top:38px;width:258px;height:63px;background:url('./images/customize2.jpg') top left no-repeat;position:relative;z-index:99;float:left}
 .generate2 {padding-left:280px;padding-top:10px;width:145px;height:10px;background:url('./images/end2.jpg') top left no-repeat;float:left;position:relative}
 .restart {width:370px;height:100px;padding-top:30px;background-color:#333;background:url('./images/restart.gif') top left no-repeat;position:relative;float:left}
@@ -26,7 +26,7 @@ h1, h1 a{text-decoration:none;color:#828282;z-index:300;font:normal 10px Verdana
 a {text-decoration:none;color:#837E3C;z-index:300;}
 .left {width:170px;float:left;font-size:9px;line-height:14px;font-weight:normal;color:#848484;margin:93px auto 0 0;height:100%;position:absolute;z-index:300}
 .left2 {width:170px;float:left;font-size:9px;line-height:14px;font-weight:normal;color:#848484;margin:122px auto 0 0;height:100%;position:absolute;z-index:300}
-.right {width:170px;float:left;margin:93px auto 0 600px;position:absolute;z-index:300;font-weight:normal;font-size:9px}
+.right {width:170px;float:left;/*margin:93px auto 0 600px;*/right: 120px; top: 93px; position:absolute;z-index:300;font-weight:normal;font-size:9px}
 .right2 {width:170px;float:left;margin:122px auto 0 540px;position:absolute;z-index:300;font-weight:normal;font-size:9px}
 .middle {position:absolute;float:left;padding-left:175px;width:500px}
 textarea {width:267px;height:379px;color:#333;font-weight:bold;font-size:9px}

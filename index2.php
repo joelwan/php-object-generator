@@ -19,6 +19,7 @@ if (IsPostback())
 	$objectName = GetVariable('object');
 	$attributeList=Array();
 	$typeList=Array();
+	$classList=Array();
 	$z=0;
 	for ($i=1; $i<100; $i++)
 	{
@@ -26,6 +27,7 @@ if (IsPostback())
 		{
 			$attributeList[] = GetVariable(('fieldattribute_'.$i));
 			$z++;
+
 		}
 		if (GetVariable(('type_'.$i)) != null && $z==$i)
 		{
@@ -37,6 +39,14 @@ if (IsPostback())
 			{
 				$typeList[] = GetVariable(('ttype_'.$i));
 			}
+
+			if (GetVariable(('type_'.$i)) == "BELONGSTO" || GetVariable(('type_'.$i)) == "HASMANY"){
+				$classList[] = GetVariable(('tclass_'.$i));
+			}
+			else{
+				$classList[] ='';
+			}
+
 		}
 		else
 		{
@@ -68,16 +78,18 @@ if ($GLOBALS['configuration']['soapEngine'] == "nusoap")
 		$_SESSION['objectString'] = $object;
 		$_SESSION['attributeList'] = serialize($attributeList);
 		$_SESSION['typeList'] = serialize($typeList);
+		$_SESSION['classList'] = serialize($classList);
 }
 else if ($GLOBALS['configuration']['soapEngine'] == "phpsoap")
 {
 	$client = new SoapClient('services/pog.wsdl', array('cache_wsdl' => 0));
 	try
 	{
-		$object = base64_decode($client->GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver));
+		$object = base64_decode($client->GenerateObject($objectName, $attributeList, $typeList, $language, $wrapper, $pdoDriver, $classList));
 		$_SESSION['objectString'] = $object;
 		$_SESSION['attributeList'] = serialize($attributeList);
 		$_SESSION['typeList'] = serialize($typeList);
+		$_SESSION['classList'] = serialize($classList);
 	}
 	catch (SoapFault $e)
 	{
@@ -155,6 +167,18 @@ else if ($GLOBALS['configuration']['soapEngine'] == "phpsoap")
 					<!-- result -->
 					<div class="greybox2">
 						<textarea cols="200" rows="30"><?php echo $object;?></textarea>
+						<?php
+						foreach ($typeList as $key => $type)
+						{
+							if ($type == "JOIN")
+							{
+								echo('</br></br>Maping Class for '.$attributeList[$key]);
+								$object = base64_decode($client->GenerateMapping($objectName, $attributeList[$key], $language, $wrapper, $pdoDriver));
+								echo('<textarea cols="200" rows="30">'.$object.'</textarea>');
+							}
+						}
+						?>
+
 					</div>
 					<!-- greybox -->
 					<div class="generate2"></div>

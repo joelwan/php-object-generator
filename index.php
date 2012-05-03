@@ -55,6 +55,14 @@ if ($misc->GetVariable('typeList') != null)
 		}
 	}
 }
+if ($misc->GetVariable('classList') != null)
+{
+	if (isset($_GET['classList']))
+		eval ("\$classList =". stripcslashes(urldecode($_GET['classList'])).";");
+	else
+		@$classList=unserialize($_SESSION['classList']);
+}
+
 $pdoDriver = ($misc->GetVariable('pdoDriver')!=null?$misc->GetVariable('pdoDriver'):'mysql');
 
 ?>
@@ -70,8 +78,8 @@ $pdoDriver = ($misc->GetVariable('pdoDriver')!=null?$misc->GetVariable('pdoDrive
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="ICBM" content="53.5411, -113.4914">
 <meta name="DC.title" content="PHP Object Generator (POG)">
-<script src="./pog.js" type="text/javascript">
-</script>
+<script src="jquery.js" type="text/javascript"></script>
+<script src="pog1.js" type="text/javascript"></script>
 <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
 </script>
 <script type="text/javascript">
@@ -161,30 +169,45 @@ urchinTracker();
 			<input type="text" id="objName" name="object" class="i" value="<?php echo(isset($objectName)?$objectName:'')?>"/>
 		</div><!-- objectname -->
 		<div class="greybox">
-			<span class="line"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/> <input  type="text" name="fieldattribute_1" class="i" value="<?php echo(isset($attributeList)&&isset($attributeList[0])?$attributeList[0]:'')?>" onkeydown="javascript:Reposition(this,event);"></input>  &nbsp;&nbsp;<img src="./images/type.jpg" width="36" height="18" alt="object attribute"/>
-                <select class="s" style="display:<?php echo(!isset($typeList[0])||$misc->TypeIsKnown($typeList[0]) ?"inline":"none")?>" onchange="ConvertDDLToTextfield('type_1')" name="type_1" id="type_1">
-                	<?php
+			<span class="line" id="line_1"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/> 
+				<input  type="text" id="fieldattribute_1" name="fieldattribute_1" class="i f" value="<?=(isset($attributeList)&&isset($attributeList[0])?$attributeList[0]:'')?>" ></input>  &nbsp;&nbsp;<img src="./images/type.jpg" width="36" height="18" alt="object attribute"/>
+                <select class="s typ" style="display:<?=(!isset($typeList[0])||$misc->TypeIsKnown($typeList[0]) ?"inline":"none")?>" name="type_1" id="type_1">
+                	<?
                 		$dataTypeIndex = 0;
-						eval("include \"./include/datatype.".$pdoDriver.".inc.php\";");
+						eval("include \"include/datatype.mysql.inc.php\";");
 					?>
                 </select>
-              	<input style="display:<?php echo(!isset($typeList[0])||$misc->TypeIsKnown($typeList[0])?"none":"inline")?>" type="text" name="ttype_1" class="i" id="ttype_1" value="<?php echo(isset($typeList)&&isset($typeList[0])&&!$misc->TypeIsKnown($typeList[0])?$typeList[0]:'')?>"></input></span><br/><br/>
-			<span class="line"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/>  <input type="text" name="fieldattribute_2" class="i" value="<?php echo(isset($attributeList)&&isset($attributeList[1])?$attributeList[1]:'')?>" onkeydown="javascript:Reposition(this,event);"></input> &nbsp;&nbsp;<img src="./images/type.jpg" width="36" height="18" alt="object attribute"/>
-			<select class="s" style="display:<?php echo(!isset($typeList[1])||$misc->TypeIsKnown($typeList[1]) ?"inline":"none")?>" onchange="ConvertDDLToTextfield('type_2')" name="type_2" id="type_2">
-              		<?php
+              	<input style="display:<?=(!isset($typeList[0])||$misc->TypeIsKnown($typeList[0])?"none":"inline")?>" type="text" name="ttype_1" class="i" id="ttype_1" value="<?=(isset($typeList)&&isset($typeList[0])&&!$misc->TypeIsKnown($typeList[0])?$typeList[0]:'')?>"></input>
+              	&nbsp;&nbsp;
+              	<img src="./images/class.jpg" height="18" alt="object attribute" style="margin-left:5px; display:<?=(isset($typeList[0])&&$typeList[0] == "BELONGSTO" || isset($typeList[0])&&$typeList[0] == "HASMANY"?"inline":"none")?>"/ >
+              	<input style="display:<?=(isset($typeList[0])&&$typeList[0] == "BELONGSTO" || isset($typeList[0])&&$typeList[0] == "HASMANY"?"inline":"none")?>" type="text" name="tclass_1" class="i" id="tclass_1" value="<?=(isset($classList)&&isset($classList[0])?$classList[0]:'')?>"></input>
+            </span><br/><br/>
+			<span class="line" id="line_2"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/>  
+				<input type="text" id="fieldattribute_2" name="fieldattribute_2" class="i f" value="<?=(isset($attributeList)&&isset($attributeList[1])?$attributeList[1]:'')?>" ></input> &nbsp;&nbsp;<img src="./images/type.jpg" width="36" height="18" alt="object attribute"/>
+				<select class="s typ" style="display:<?=(!isset($typeList[1])||$misc->TypeIsKnown($typeList[1]) ?"inline":"none")?>" name="type_2" id="type_2">
+              		<?
                 		$dataTypeIndex = 1;
-						eval("include \"./include/datatype.".$pdoDriver.".inc.php\";");
+						eval("include \"include/datatype.mysql.inc.php\";");
 					?>
                 </select>
-                <input style="display:<?php echo(!isset($typeList[1])||$misc->TypeIsKnown($typeList[1]) ?"none":"inline")?>" type="text" name="ttype_2" class="i" id="ttype_2" value="<?php echo(isset($typeList)&&isset($typeList[1])&&!$misc->TypeIsKnown($typeList[1])?$typeList[1]:'')?>"></input></span><br/><br/>
-			<span class="line"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/>  <input type="text" name="fieldattribute_3" class="i" value="<?php echo(isset($attributeList)&&isset($attributeList[2])?$attributeList[2]:'')?>" onkeydown="javascript:Reposition(this,event);"></input> &nbsp;&nbsp;<img src="./images/type.jpg" width="36" height="18" alt="object attribute"/>
-			<select class="s" style="display:<?php echo(!isset($typeList[2])||$misc->TypeIsKnown($typeList[2]) ?"inline":"none")?>" onchange="ConvertDDLToTextfield('type_3')" name="type_3" id="type_3">
-                	<?php
-                		$dataTypeIndex = 2;
-						eval("include \"./include/datatype.".$pdoDriver.".inc.php\";");
-					?>
-			</select>
-                <input style="display:<?php echo(!isset($typeList[2])||$misc->TypeIsKnown($typeList[2]) ?"none":"inline")?>" type="text" name="ttype_3" class="i" id="ttype_3" value="<?php echo(isset($typeList)&&isset($typeList[2])&&!$misc->TypeIsKnown($typeList[2])?$typeList[2]:'')?>"></input></span><br/>
+                <input style="display:<?=(!isset($typeList[1])||$misc->TypeIsKnown($typeList[1]) ?"none":"inline")?>" type="text" name="ttype_2" class="i" id="ttype_2" value="<?=(isset($typeList)&&isset($typeList[1])&&!$misc->TypeIsKnown($typeList[1])?$typeList[1]:'')?>"></input>
+                &nbsp;&nbsp;
+                <img src="./images/class.jpg" height="18" alt="object attribute" style="margin-left:5px; display:<?=(isset($typeList[1])&&$typeList[1] == "BELONGSTO" || isset($typeList[1])&&$typeList[1] == "HASMANY"?"inline":"none")?>"/>
+                <input style="display:<?=(isset($typeList[1])&&$typeList[1] == "BELONGSTO" || isset($typeList[0])&&$typeList[1] == "HASMANY"?"inline":"none")?>" type="text" name="tclass_2" class="i" id="tclass_2" value="<?=(isset($classList)&&isset($classList[1])?$classList[1]:'')?>"></input>
+        	</span><br/><br/>
+			<span class="line" id="line_3"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/>  
+				<input type="text" id="fieldattribute_3" name="fieldattribute_3" class="i f" value="<?=(isset($attributeList)&&isset($attributeList[2])?$attributeList[2]:'')?>" ></input> &nbsp;&nbsp;<img src="./images/type.jpg" width="36" height="18" alt="object attribute"/>
+				<select class="s typ" style="display:<?=(!isset($typeList[2])||$misc->TypeIsKnown($typeList[2]) ?"inline":"none")?>" name="type_3" id="type_3">
+	                	<?
+	                		$dataTypeIndex = 2;
+							eval("include \"include/datatype.mysql.inc.php\";");
+						?>
+				</select>
+                <input style="display:<?=(!isset($typeList[2])||$misc->TypeIsKnown($typeList[2]) ?"none":"inline")?>" type="text" name="ttype_3" class="i" id="ttype_3" value="<?=(isset($typeList)&&isset($typeList[2])&&!$misc->TypeIsKnown($typeList[2])?$typeList[2]:'')?>"></input>
+                &nbsp;&nbsp;
+                <img src="./images/class.jpg" height="18" alt="object attribute" style="margin-left:5px; display:<?=(isset($typeList[2])&&$typeList[2] == "BELONGSTO" || isset($typeList[2])&&$typeList[2] == "HASMANY"?"inline":"none")?>"/>
+                <input style="display:<?=(isset($typeList[2])&&$typeList[2] == "BELONGSTO" || isset($typeList[0])&&$typeList[2] == "HASMANY"?"inline":"none")?>" type="text" name="tclass_3" class="i" id="tclass_3" value="<?=(isset($classList)&&isset($classList[2])?$classList[2]:'')?>"></input>
+            </span><br/>
 		<?php
 		if (isset($attributeList))
 		{
@@ -192,17 +215,22 @@ urchinTracker();
 			for ($j=4; $j<= $max; $j++)
 			{
 				echo '<div style="display:block" id="attribute_'.$j.'">
-					<br/><span class="line"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>  <input type="text" name="fieldattribute_'.$j.'" class="i" id="fieldattribute_'.$j.'" value="'.(isset($attributeList)&&isset($attributeList[$j-1])?$attributeList[$j-1]:'').'" onkeydown="javascript:Reposition(this,event);"/> &nbsp;&nbsp;<img src="./images/type.jpg" alt="object attribute"/>
-					<select class="s" style="display:'.(!isset($typeList[$j-1])||$misc->TypeIsKnown($typeList[$j-1])?"inline":"none").'" onchange="ConvertDDLToTextfield(\'type_'.$j.'\')" name="type_'.$j.'" id="type_'.$j.'">';
+					<br/><span class="line" id="line_'.$j.'"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>  
+					<input type="text" name="fieldattribute_'.$j.'" class="i f" id="fieldattribute_'.$j.'" value="'.(isset($attributeList)&&isset($attributeList[$j-1])?$attributeList[$j-1]:'').'" /> &nbsp;&nbsp;<img src="./images/type.jpg" alt="object attribute"/>
+					<select class="s typ" style="display:'.(!isset($typeList[$j-1])||$misc->TypeIsKnown($typeList[$j-1])?"inline":"none").'" name="type_'.$j.'" id="type_'.$j.'">';
 
 				$dataTypeIndex = $j-1;
-				eval("include \"./include/datatype.".$pdoDriver.".inc.php\";");
+				eval("include \"./include/datatype.mysql.inc.php\";");
 
 				echo '</select>
-                <input style="display:'.(!isset($typeList[$j-1])||$misc->TypeIsKnown($typeList[$j-1]) ?"none":"inline").'" type="text" id="ttype_'.$j.'"  name="ttype_'.$j.'" class="i" value="'.(isset($typeList)&&isset($typeList[$j-1])&&!$misc->TypeIsKnown($typeList[$j-1])?$typeList[$j-1]:'').'"></input></span><br/>
+                <input style="display:'.(!isset($typeList[$j-1])||$misc->TypeIsKnown($typeList[$j-1]) ?"none":"inline").'" type="text" id="ttype_'.$j.'"  name="ttype_'.$j.'" class="i" value="'.(isset($typeList)&&isset($typeList[$j-1])&&!$misc->TypeIsKnown($typeList[$j-1])?$typeList[$j-1]:'').'"></input>
+                &nbsp;&nbsp;
+                <img src="./images/class.jpg" height="18" alt="object attribute" style="margin-left:5px; display:'.(isset($typeList[$j-1])&&$typeList[$j-1] == "BELONGSTO" || isset($typeList[$j-1])&&$typeList[$j-1] == "HASMANY"?"inline":"none").'"/>
+                <input style="display:'.(isset($typeList[$j-1])&&$typeList[$j-1] == "BELONGSTO" || isset($typeList[$j-1])&&$typeList[$j-1] == "HASMANY"?"inline":"none").'" type="text" name="tclass_'.$j.'" class="i" id="tclass_'.$j.'" value="'.(isset($classList)&&isset($classList[$j-1])?$classList[$j-1]:'').'"></input>
+                </span><br/>
 				</div>';
 			}
-			$max++;
+			
 			if ($max < 3)
 			{
 				$max = 3;
@@ -210,14 +238,19 @@ urchinTracker();
 			for ($j=$max+1; $j<100; $j++)
 			{
 				echo '<div style="display:none" id="attribute_'.$j.'">
-					<br/><span class="line"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>  <input type="text" name="fieldattribute_'.$j.'" class="i" id="fieldattribute_'.$j.'" value="" onkeydown="javascript:Reposition(this,event);"/> &nbsp;&nbsp;<img src="./images/type.jpg" alt="object attribute"/>
-				<select class="s" style="display:inline" onchange="ConvertDDLToTextfield(\'type_'.$j.'\')" name="type_'.$j.'" id="type_'.$j.'">';
+					<br/><span class="line" id="line_'.$j.'"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>  
+					<input type="text" name="fieldattribute_'.$j.'" class="i f" id="fieldattribute_'.$j.'" value="" /> &nbsp;&nbsp;<img src="./images/type.jpg" alt="object attribute"/>
+				<select class="s typ" style="display:inline" name="type_'.$j.'" id="type_'.$j.'">';
 
 				$dataTypeIndex = $j;
-				eval("include \"./include/datatype.".$pdoDriver.".inc.php\";");
+				eval("include \"./include/datatype.mysql.inc.php\";");
 
 				echo '</select>
-				<input style="display:none" type="text" id="ttype_'.$j.'" name="ttype_'.$j.'" class="i"></input></span>
+				<input style="display:none" type="text" id="ttype_'.$j.'" name="ttype_'.$j.'" class="i"></input>
+				&nbsp;&nbsp;
+				<img src="./images/class.jpg" height="18" alt="object attribute" style="margin-left:5px; display:none"/>
+                <input style="display:none" type="text" name="tclass_'.$j.'" class="i" id="tclass_'.$j.'"></input>
+                </span>
 				<br/>
 				</div>';
 
@@ -229,15 +262,20 @@ urchinTracker();
 			{
 
 				echo '<div style="display:none" id="attribute_'.$j.'">
-					<br/><span class="line"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>  <input type="text" name="fieldattribute_'.$j.'" class="i" id="fieldattribute_'.$j.'" onkeydown="javascript:Reposition(this,event);"/> &nbsp;&nbsp;<img src="./images/type.jpg" alt="object attribute"/>
-				<select class="s" style="display:inline" onchange="ConvertDDLToTextfield(\'type_'.$j.'\')" name="type_'.$j.'" id="type_'.$j.'">';
+					<br/><span class="line" id="line_'.$j.'"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>  
+					<input type="text" name="fieldattribute_'.$j.'" class="i f" id="fieldattribute_'.$j.'" /> &nbsp;&nbsp;<img src="./images/type.jpg" alt="object attribute"/>
+				<select class="s typ" style="display:inline" name="type_'.$j.'" id="type_'.$j.'">';
 
                 $dataTypeIndex = $j;
-				eval("include \"./include/datatype.".$pdoDriver.".inc.php\";");
+				eval("include \"./include/datatype.mysql.inc.php\";");
 
 
                 echo '</select>
-				<input style="display:none" type="text" id="ttype_'.$j.'" name="ttype_'.$j.'" class="i"></input></span><br/>
+				<input style="display:none" type="text" id="ttype_'.$j.'" name="ttype_'.$j.'" class="i"></input>
+				&nbsp;&nbsp;
+				<img src="./images/class.jpg" height="18" alt="object attribute" style="margin-left:5px; display:none"/>
+                <input style="display:none" type="text" name="tclass_'.$j.'" class="i" id="tclass_'.$j.'"></input>
+				</span><br/>
 				</div>';
 			}
 		}
@@ -248,7 +286,7 @@ urchinTracker();
 		</div><!-- generate -->
 
 		<div class="submit">
-			<input type="image"  src="./images/generate.jpg" alt="Generate!" onclick="WarnMinInput();"/>
+			<input type="image"  src="./images/generate.jpg" alt="Generate!"/>
 		</div><!-- submit -->
 		</form>
 	</div><!-- middle -->
