@@ -9,20 +9,24 @@ class Object
 	var $separator = "\n\t";
 	var $pdoDriver = "";
 	var $language = 'php5.1';
+	var $classList;
+	
 
 	// -------------------------------------------------------------
-	function Object($objectName, $attributeList = '', $typeList ='', $pdoDriver = '', $language = 'php5.1')
+	function Object($objectName, $attributeList = '', $typeList ='', $pdoDriver = '', $language = 'php5.1', $classList)
 	{
 		$this->objectName = $objectName;
 		$this->attributeList = $attributeList;
 		$this->typeList = $typeList;
 		$this->pdoDriver = $pdoDriver;
 		$this->language = $language;
+		$this->classList = $classList;
 	}
 
 	// -------------------------------------------------------------
 	function BeginObject()
 	{
+		$impArray = array();
 		$misc = new Misc(array());
 		$this->string = "<?php\n";
 		$this->string .= $this->CreatePreface();
@@ -32,6 +36,13 @@ class Object
 			if ($type == "JOIN")
 			{
 				$this->string .= "\ninclude_once('class.".strtolower($misc->MappingName($this->objectName, $this->attributeList[$key])).".php');";
+			}
+			if ($type == "BELONGSTO" || $type == "HASMANY")
+			{
+				if(in_array(strtolower($this->classList[$key]), $impArray) == false)
+					$this->string .= "\ninclude_once('class.".strtolower($this->classList[$key]).".php');";
+
+				array_push($impArray, strtolower($this->classList[$key])) ;
 			}
 		}
 		$this->string .= "\nclass ".$this->objectName." extends POG_Base\n{\n\t";
@@ -178,7 +189,7 @@ class Object
 		$this->string .= "\n* @version POG ".$GLOBALS['configuration']['versionNumber'].$GLOBALS['configuration']['revisionNumber']." / ".strtoupper($this->language)." MYSQL";
 		$this->string .= "\n* @see http://www.phpobjectgenerator.com/plog/tutorials/45/pdo-mysql";
 		$this->string .= "\n* @copyright ".$GLOBALS['configuration']['copyright'];
-		$this->string .= "\n* @link http://www.phpobjectgenerator.com/?language=".$this->language."&wrapper=pdo&pdoDriver=".$this->pdoDriver."&objectName=".urlencode($this->objectName)."&attributeList=".urlencode(var_export($this->attributeList, true))."&typeList=".urlencode(urlencode(var_export($this->typeList, true)));
+		$this->string .= "\n* @link http://www.phpobjectgenerator.com/?language=".$this->language."&wrapper=pdo&pdoDriver=".$this->pdoDriver."&objectName=".urlencode($this->objectName)."&attributeList=".urlencode(var_export($this->attributeList, true))."&typeList=".urlencode(urlencode(var_export($this->typeList, true)))."&classList=".urlencode(var_export($this->classList, true));
 		$this->string .= "\n*/";
 	}
 
@@ -741,12 +752,12 @@ class Object
 	}
 
 	// -------------------------------------------------------------
-	function CreateGetChildrenFunction($child)
+	function CreateGetChildrenFunction($child, $class)
 	{
 		$this->string .= "\n\t$this->separator\n\t";
 		$this->string .= $this->CreateComments("Gets a list of $child objects associated to this one", array("multidimensional array {(\"field\", \"comparator\", \"value\"), (\"field\", \"comparator\", \"value\"), ...}","string \$sortBy","boolean \$ascending","int limit"),"array of $child objects");
 		$this->string .= "\tfunction Get".ucfirst(strtolower($child))."List(\$fcv_array = array(), \$sortBy='', \$ascending=true, \$limit='')\n\t{";
-		$this->string .= "\n\t\t\$".strtolower($child)." = new ".$child."();";
+		$this->string .= "\n\t\t\$".strtolower($child)." = new ".$class."();";
 		$this->string .= "\n\t\t\$fcv_array[] = array(\"".strtolower($this->objectName)."Id\", \"=\", \$this->".strtolower($this->objectName)."Id);";
 		$this->string .= "\n\t\t\$dbObjects = \$".strtolower($child)."->GetList(\$fcv_array, \$sortBy, \$ascending, \$limit);";
 		$this->string .= "\n\t\treturn \$dbObjects;";
@@ -781,12 +792,12 @@ class Object
 	}
 
 	// -------------------------------------------------------------
-	function CreateGetParentFunction($parent)
+	function CreateGetParentFunction($parent, $class)
 	{
 		$this->string .= "\n\t$this->separator\n\t";
 		$this->string .= $this->CreateComments("Associates the $parent object to this one",'',"boolean");
 		$this->string .= "\tfunction Get".ucfirst(strtolower($parent))."()\n\t{";
-		$this->string .= "\n\t\t\$".strtolower($parent)." = new ".$parent."();";
+		$this->string .= "\n\t\t\$".strtolower($parent)." = new ".$class."();";
 		$this->string .= "\n\t\treturn $".strtolower($parent)."->Get(\$this->".strtolower($parent)."Id);";
 		$this->string .= "\n\t}";
 	}
