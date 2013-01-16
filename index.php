@@ -4,6 +4,7 @@
 * @link  http://www.phpobjectgenerator.com
 * @copyright  Offered under the  BSD license
 * @abstract  Php Object Generator  automatically generates clean and tested Object Oriented code for your PHP4/PHP5 application.
+* BETA SITE
 */
 include "./include/class.misc.php";
 include "./include/configuration.php";
@@ -298,7 +299,7 @@ google_ad_width = 160;
 google_ad_height = 600;
 google_ad_format = "160x600_as";
 google_ad_type = "text";
- google_ad_channel = "8639589622";
+google_ad_channel = "8639589622";
 google_color_border = "FFFFFF";
 google_color_bg = "FFFFFF";
 google_color_link = "716500";
