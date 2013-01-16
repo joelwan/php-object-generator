@@ -57,7 +57,7 @@ if (isset($_POST['atlink']))
 		}
 		else
 		{
-			eval ("\$_SESSION['".$arguments[0]."'] = '".$value."';");
+			$_SESSION[$arguments[0]] = $value;
 		}
 	}
 	if (!isset($pdoDrive))

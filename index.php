@@ -24,7 +24,7 @@ if ($misc->GetVariable('objectName')!= null)
 if ($misc->GetVariable('attributeList') != null)
 {
 	if (isset($_GET['attributeList']))
-		eval ("\$attributeList =". stripcslashes(urldecode($_GET['attributeList'])).";");
+		$attributeList = stripcslashes(urldecode($_GET['attributeList']));
 	else
 		@$attributeList=unserialize($_SESSION['attributeList']);
 }
@@ -40,7 +40,7 @@ if ($misc->GetVariable('typeList') != null)
 		{
 			$typeList = urldecode($_GET['typeList']);
 		}
-		eval ("\$typeList =".trim($typeList).";");
+		$typeList = trim($typeList);
 		for($i=0; $i<sizeof($typeList); $i++)
 		{
 			$typeList[$i] = stripcslashes($typeList[$i]);
@@ -58,7 +58,7 @@ if ($misc->GetVariable('typeList') != null)
 if ($misc->GetVariable('classList') != null)
 {
 	if (isset($_GET['classList']))
-		eval ("\$classList =". stripcslashes(urldecode($_GET['classList'])).";");
+		$classList = stripcslashes(urldecode($_GET['classList']));
 	else
 		@$classList=unserialize($_SESSION['classList']);
 }
@@ -169,7 +169,7 @@ urchinTracker();
 			<input type="text" id="objName" name="object" class="i" value="<?php echo(isset($objectName)?$objectName:'')?>"/>
 		</div><!-- objectname -->
 		<div class="greybox">
-			<span class="line" id="line_1"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/> 
+			<span class="line" id="line_1"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/>
 				<input  type="text" id="fieldattribute_1" name="fieldattribute_1" class="i f" value="<?=(isset($attributeList)&&isset($attributeList[0])?$attributeList[0]:'')?>" ></input>  &nbsp;&nbsp;<img src="./images/type.jpg" width="36" height="18" alt="object attribute"/>
                 <select class="s typ" style="display:<?=(!isset($typeList[0])||$misc->TypeIsKnown($typeList[0]) ?"inline":"none")?>" name="type_1" id="type_1">
                 	<?
@@ -182,7 +182,7 @@ urchinTracker();
               	<img src="./images/class.jpg" height="18" alt="object attribute" style="margin-left:5px; display:<?=(isset($typeList[0])&&$typeList[0] == "BELONGSTO" || isset($typeList[0])&&$typeList[0] == "HASMANY"?"inline":"none")?>"/ >
               	<input style="display:<?=(isset($typeList[0])&&$typeList[0] == "BELONGSTO" || isset($typeList[0])&&$typeList[0] == "HASMANY"?"inline":"none")?>" type="text" name="tclass_1" class="i" id="tclass_1" value="<?=(isset($classList)&&isset($classList[0])?$classList[0]:'')?>"></input>
             </span><br/><br/>
-			<span class="line" id="line_2"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/>  
+			<span class="line" id="line_2"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/>
 				<input type="text" id="fieldattribute_2" name="fieldattribute_2" class="i f" value="<?=(isset($attributeList)&&isset($attributeList[1])?$attributeList[1]:'')?>" ></input> &nbsp;&nbsp;<img src="./images/type.jpg" width="36" height="18" alt="object attribute"/>
 				<select class="s typ" style="display:<?=(!isset($typeList[1])||$misc->TypeIsKnown($typeList[1]) ?"inline":"none")?>" name="type_2" id="type_2">
               		<?
@@ -195,7 +195,7 @@ urchinTracker();
                 <img src="./images/class.jpg" height="18" alt="object attribute" style="margin-left:5px; display:<?=(isset($typeList[1])&&$typeList[1] == "BELONGSTO" || isset($typeList[1])&&$typeList[1] == "HASMANY"?"inline":"none")?>"/>
                 <input style="display:<?=(isset($typeList[1])&&$typeList[1] == "BELONGSTO" || isset($typeList[0])&&$typeList[1] == "HASMANY"?"inline":"none")?>" type="text" name="tclass_2" class="i" id="tclass_2" value="<?=(isset($classList)&&isset($classList[1])?$classList[1]:'')?>"></input>
         	</span><br/><br/>
-			<span class="line" id="line_3"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/>  
+			<span class="line" id="line_3"><img src="./images/object2.jpg" width="33" height="29" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute" width="56" height="18"/>
 				<input type="text" id="fieldattribute_3" name="fieldattribute_3" class="i f" value="<?=(isset($attributeList)&&isset($attributeList[2])?$attributeList[2]:'')?>" ></input> &nbsp;&nbsp;<img src="./images/type.jpg" width="36" height="18" alt="object attribute"/>
 				<select class="s typ" style="display:<?=(!isset($typeList[2])||$misc->TypeIsKnown($typeList[2]) ?"inline":"none")?>" name="type_3" id="type_3">
 	                	<?
@@ -215,7 +215,7 @@ urchinTracker();
 			for ($j=4; $j<= $max; $j++)
 			{
 				echo '<div style="display:block" id="attribute_'.$j.'">
-					<br/><span class="line" id="line_'.$j.'"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>  
+					<br/><span class="line" id="line_'.$j.'"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>
 					<input type="text" name="fieldattribute_'.$j.'" class="i f" id="fieldattribute_'.$j.'" value="'.(isset($attributeList)&&isset($attributeList[$j-1])?$attributeList[$j-1]:'').'" /> &nbsp;&nbsp;<img src="./images/type.jpg" alt="object attribute"/>
 					<select class="s typ" style="display:'.(!isset($typeList[$j-1])||$misc->TypeIsKnown($typeList[$j-1])?"inline":"none").'" name="type_'.$j.'" id="type_'.$j.'">';
 
@@ -230,7 +230,7 @@ urchinTracker();
                 </span><br/>
 				</div>';
 			}
-			
+
 			if ($max < 3)
 			{
 				$max = 3;
@@ -238,7 +238,7 @@ urchinTracker();
 			for ($j=$max+1; $j<100; $j++)
 			{
 				echo '<div style="display:none" id="attribute_'.$j.'">
-					<br/><span class="line" id="line_'.$j.'"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>  
+					<br/><span class="line" id="line_'.$j.'"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>
 					<input type="text" name="fieldattribute_'.$j.'" class="i f" id="fieldattribute_'.$j.'" value="" /> &nbsp;&nbsp;<img src="./images/type.jpg" alt="object attribute"/>
 				<select class="s typ" style="display:inline" name="type_'.$j.'" id="type_'.$j.'">';
 
@@ -262,7 +262,7 @@ urchinTracker();
 			{
 
 				echo '<div style="display:none" id="attribute_'.$j.'">
-					<br/><span class="line" id="line_'.$j.'"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>  
+					<br/><span class="line" id="line_'.$j.'"><img src="./images/object2.jpg" alt="object attribute"/><img src="./images/attribute.jpg" alt="object attribute"/>
 					<input type="text" name="fieldattribute_'.$j.'" class="i f" id="fieldattribute_'.$j.'" /> &nbsp;&nbsp;<img src="./images/type.jpg" alt="object attribute"/>
 				<select class="s typ" style="display:inline" name="type_'.$j.'" id="type_'.$j.'">';
 
