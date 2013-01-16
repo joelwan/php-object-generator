@@ -4,7 +4,7 @@
 * @link  http://www.phpobjectgenerator.com
 * @copyright  Offered under the  BSD license
 * @abstract  Php Object Generator  automatically generates clean and tested Object Oriented code for your PHP4/PHP5 application.
-* LIVE SITE
+* LIVE SITE #
 */
 include "./include/class.misc.php";
 include "./include/configuration.php";
