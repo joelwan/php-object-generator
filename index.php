@@ -4,7 +4,7 @@
 * @link  http://www.phpobjectgenerator.com
 * @copyright  Offered under the  BSD license
 * @abstract  Php Object Generator  automatically generates clean and tested Object Oriented code for your PHP4/PHP5 application.
-* LIVE SITE #
+* LIVE SITE
 */
 include "./include/class.misc.php";
 include "./include/configuration.php";
@@ -24,8 +24,11 @@ if ($misc->GetVariable('objectName')!= null)
 }
 if ($misc->GetVariable('attributeList') != null)
 {
-	if (isset($_GET['attributeList']))
-		$attributeList = stripcslashes(urldecode($_GET['attributeList']));
+	if (isset($_GET['attributeList']))  {
+		$attArray = stripcslashes(urldecode($_GET['attributeList']));
+		$attArray = trim(preg_replace('#^array\s*\(|\d\s\=\>\s*\'|\'\,\s*\)$#', '', $attArray));
+		$attributeList = preg_split('#\'\s*,\s*#', $attArray);
+	}
 	else
 		@$attributeList=unserialize($_SESSION['attributeList']);
 }
@@ -41,7 +44,9 @@ if ($misc->GetVariable('typeList') != null)
 		{
 			$typeList = urldecode($_GET['typeList']);
 		}
-		$typeList = trim($typeList);
+		$typeArray = trim($typeList);
+		$typeArray = trim(preg_replace('#^array\s*\(|\d\s\=\>\s*\'|\'\,\s*\)$#', '', $typeArray));
+		$typeList = preg_split('#\'\s*,\s*#', $typeArray);
 		for($i=0; $i<sizeof($typeList); $i++)
 		{
 			$typeList[$i] = stripcslashes($typeList[$i]);
@@ -59,9 +64,15 @@ if ($misc->GetVariable('typeList') != null)
 if ($misc->GetVariable('classList') != null)
 {
 	if (isset($_GET['classList']))
-		$classList = stripcslashes(urldecode($_GET['classList']));
+	{
+		$classArray = stripcslashes(urldecode($_GET['classList']));
+		$classArray = trim(preg_replace('#^array\s*\(|\d\s\=\>\s*\'|\'\,\s*\)$#', '', $classArray));
+		$classList = preg_split('#\'\s*,\s*#', $classArray);
+	}
 	else
+	{
 		@$classList=unserialize($_SESSION['classList']);
+	}
 }
 
 $pdoDriver = ($misc->GetVariable('pdoDriver')!=null?$misc->GetVariable('pdoDriver'):'mysql');
