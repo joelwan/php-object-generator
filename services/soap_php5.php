@@ -289,7 +289,7 @@ class ServiceClass
 			}
 			else
 			{
-				$$arguments[0] = $value;
+				eval ("$".$arguments[0]." = '".$value."';");
 			}
 			if (!isset($pdoDrive))
 			{
