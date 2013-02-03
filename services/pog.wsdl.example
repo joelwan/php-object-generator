@@ -223,7 +223,7 @@
 	<!-- service block begins -->
 	<service name="PogService">
 		<port name="PogServiceService" binding="tns:PogServiceServiceSoap">
-			<soap:address location="http://beta.phpobjectgenerator.com/services/soap_php5.php"/>
+			<soap:address location="http://www.phpobjectgenerator.com/services/soap_php5.php"/>
 		</port>
 	</service>
 </definitions>
