@@ -26,7 +26,7 @@ if ($misc->GetVariable('attributeList') != null)
 {
 	if (isset($_GET['attributeList']))  {
 		$attArray = stripcslashes(urldecode($_GET['attributeList']));
-		$attArray = trim(preg_replace('#^array\s*\(|\d\s\=\>\s*\'|\'\,\s*\)$#', '', $attArray));
+		$attArray = trim(preg_replace('#^array\s*\(|\d+\s\=\>\s*\'|\'\,\s*\)$#', '', $attArray));
 		$attributeList = preg_split('#\'\s*,\s*#', $attArray);
 	}
 	else
@@ -45,7 +45,7 @@ if ($misc->GetVariable('typeList') != null)
 			$typeList = urldecode($_GET['typeList']);
 		}
 		$typeArray = trim($typeList);
-		$typeArray = trim(preg_replace('#^array\s*\(|\d\s\=\>\s*\'|\'\,\s*\)$#', '', $typeArray));
+		$typeArray = trim(preg_replace('#^array\s*\(|\d+\s\=\>\s*\'|\'\,\s*\)$#', '', $typeArray));
 		$typeList = preg_split('#\'\s*,\s*#', $typeArray);
 		for($i=0; $i<sizeof($typeList); $i++)
 		{
@@ -66,7 +66,7 @@ if ($misc->GetVariable('classList') != null)
 	if (isset($_GET['classList']))
 	{
 		$classArray = stripcslashes(urldecode($_GET['classList']));
-		$classArray = trim(preg_replace('#^array\s*\(|\d\s\=\>\s*\'|\'\,\s*\)$#', '', $classArray));
+		$classArray = trim(preg_replace('#^array\s*\(|\d+\s\=\>\s*\'|\'\,\s*\)$#', '', $classArray));
 		$classList = preg_split('#\'\s*,\s*#', $classArray);
 	}
 	else
