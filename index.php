@@ -81,7 +81,6 @@ $pdoDriver = ($misc->GetVariable('pdoDriver')!=null?$misc->GetVariable('pdoDrive
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.phpobjectgenerator.com/plog/rss/"/>
 <link rel="stylesheet" href="./phpobjectgenerator.css" type="text/css" />
 <link rel="shortcut icon" href="favicon.ico" >
 <title>Php Object Generator (v<?php echo $GLOBALS['configuration']['versionNumber']?><?php echo $GLOBALS['configuration']['revisionNumber']?>) - Open Source PHP Code Generator</title>
@@ -134,7 +133,7 @@ urchinTracker();
 		<input type="hidden" name="bn" value="PP-DonationsBF">
 		<input type="image" src="http://www.phpobjectgenerator.com/images/php_code_generator_donate.gif" border="0" name="submit" alt="Thank you!">
 		</form><br/><br/><img src="./images/wantmorepog.jpg" alt="Want more Php Object Generator?"/>
-		<br/><a href="http://www.phpobjectgenerator.com/plog" title="php object generator weblog">The POG Weblog</a> and <a href="http://www.phpobjectgenerator.com/plog/rss/" title="POG RSS feed">RSS feed</a>
+		<br/><a href="http://www.phpobjectgenerator.com/plog" title="php object generator weblog">The POG Weblog</a>
 		<br/><a href="http://groups.google.com/group/Php-Object-Generator" title="Php object generator google group">The POG Google group</a>
 		<br/><a href="http://www.phpobjectgenerator.com/plog/tutorials" title="php object generator tutorials and code samples">The POG tutorials/code samples</a>
 		<br/><a href="http://plugins.phpobjectgenerator.com" title="POG Plugins">POG Plugins</a>

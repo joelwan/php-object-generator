@@ -103,7 +103,6 @@ else if ($GLOBALS['configuration']['soapEngine'] == "phpsoap")
 	<head>
 		<title>Php Object Generator (<?php echo $GLOBALS['configuration']['versionNumber']?><?php echo $GLOBALS['configuration']['revisionNumber']?>) - Open Source PHP Code Generator</title>
 		<link rel="stylesheet" href="./phpobjectgenerator.css" type="text/css" />
-		<link rel="alternate" type="application/rss+xml" title="RSS" href="http://www.phpobjectgenerator.com/plog/rss/"/>
 		<link rel="shortcut icon" href="favicon.ico" >
 		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 		<script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script>
@@ -151,7 +150,7 @@ else if ($GLOBALS['configuration']['soapEngine'] == "phpsoap")
 				</form>
 				<br />
 				<br /><img src="./images/wantmorepog.jpg" alt="Want more Php Object Generator?"/>
-				<br /><a href="http://www.phpobjectgenerator.com/plog" title="php object generator weblog">The POG Weblog</a> and <a href="http://www.phpobjectgenerator.com/plog/rss/" title="POG RSS feed">RSS feed</a>.
+				<br /><a href="http://www.phpobjectgenerator.com/plog" title="php object generator weblog">The POG Weblog</a>
 				<br /><a href="http://groups.google.com/group/Php-Object-Generator" title="Php object generator google group">The POG Google group</a>
 				<br /><a href="http://www.phpobjectgenerator.com/plog/tutorials" title="php object generator tutorials and documentation">The POG Tutorials</a>
 				<br /><a href="http://plugins.phpobjectgenerator.com" title="POG Plugins">POG Plugins</a>
