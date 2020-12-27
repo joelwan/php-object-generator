@@ -180,7 +180,7 @@ class createZip  {
 	 * @param multi-d array $package
 	 * @param array $paths
 	 */
-	function addPOGPackage($package, $paths=array())
+	function addPOGPackage($package, &$paths=array())
 	{
 		
 		$i = 0;
@@ -195,7 +195,7 @@ class createZip  {
 			{
 				$paths[] = $key;
 				$this->addDirectory((($path == '') ? "$key/" : "$path/$key/"));
-				$this->addPOGPackage($package[$key], &$paths);
+				$this->addPOGPackage($package[$key], $paths);
 			}
 			else
 			{
