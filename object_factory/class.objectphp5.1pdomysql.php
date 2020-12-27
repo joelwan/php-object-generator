@@ -99,7 +99,7 @@ class Object
 	// -------------------------------------------------------------
 	function CreateConstructor()
 	{
-		$this->string .= "\n\t\n\tfunction ".$this->objectName."(";
+		$this->string .= "\n\t\n\tfunction __construct(";
 		$i = 0;
 		$j = 0;
 		foreach ($this->attributeList as $attribute)
