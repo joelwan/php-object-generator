@@ -97,8 +97,8 @@ function tla_decodeXML($xmlstg)
 		}
 	}
 
-	$out = "";
-	$retarr = "";
+	$out = array();
+	$retarr = array();
 
 	preg_match_all ("/<(.*?)>(.*?)</", $xmlstg, $out, PREG_SET_ORDER);
 	$search_ar = array('&#60;', '&#62;', '&#34;');
